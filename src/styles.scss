@@ -1,0 +1,1271 @@
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+
+:root {
+  /* TweakCN Theme: cmlk6zefr000004lbe9jygsqc */
+  --background: oklch(0.9383 0.0042 236.4993);
+  --foreground: oklch(0.3211 0 0);
+  --card: oklch(1.0000 0 0);
+  --card-foreground: oklch(0.3211 0 0);
+  --popover: oklch(1.0000 0 0);
+  --popover-foreground: oklch(0.3211 0 0);
+  --primary: oklch(0.6420 0.1691 38.5815);
+  --primary-foreground: oklch(1.0000 0 0);
+  --secondary: oklch(0.4138 0.0846 259.8759);
+  --secondary-foreground: oklch(1.0000 0 0);
+  --muted: oklch(0.9846 0.0017 247.8389);
+  --muted-foreground: oklch(0.5510 0.0234 264.3637);
+  --accent: oklch(0.96 0.02 45);
+  --accent-foreground: oklch(0.40 0.15 38.58);
+  --destructive: oklch(0.6368 0.2078 25.3313);
+  --destructive-foreground: oklch(1.0000 0 0);
+  --border: oklch(0.8452 0 0);
+  --input: oklch(0.8452 0 0);
+  --ring: oklch(0.6397 0.1720 36.4421);
+  --chart-1: oklch(0.6693 0.0706 248.9230);
+  --chart-2: oklch(0.6678 0.1546 41.6200);
+  --chart-3: oklch(0.5957 0.1807 19.9763);
+  --chart-4: oklch(0.7859 0.1342 83.6986);
+  --chart-5: oklch(0.4227 0.0732 267.3899);
+  --sidebar: oklch(0.95 0.008 50);
+  --sidebar-foreground: oklch(0.3211 0 0);
+  --sidebar-primary: oklch(0.6397 0.1720 36.4421);
+  --sidebar-primary-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.955 0.025 50);
+  --sidebar-accent-foreground: oklch(0.40 0.15 38.58);
+  --sidebar-border: oklch(0.89 0.01 50);
+  --font-sans: Segoe UI, Helvetica Neue, Arial, sans-serif;
+  --font-serif: Segoe UI, Helvetica Neue, Arial, sans-serif;
+  --font-mono: Segoe UI, Helvetica Neue, Arial, sans-serif;
+  --radius: 0.5rem;
+  --shadow-x: 0px;
+  --shadow-y: 1px;
+  --shadow-blur: 3px;
+  --shadow-spread: 0px;
+  --shadow-opacity: 0.1;
+  --shadow-color: #1a1a1a;
+  --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.05);
+  --shadow-xs: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.05);
+  --shadow-sm: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.10), 0px 1px 2px -1px hsl(0 0% 10.1961% / 0.10);
+  --shadow: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.10), 0px 1px 2px -1px hsl(0 0% 10.1961% / 0.10);
+  --shadow-md: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.10), 0px 2px 4px -1px hsl(0 0% 10.1961% / 0.10);
+  --shadow-lg: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.10), 0px 4px 6px -1px hsl(0 0% 10.1961% / 0.10);
+  --shadow-xl: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.10), 0px 8px 10px -1px hsl(0 0% 10.1961% / 0.10);
+  --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.25);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Legacy mappings mapped directly to TweakCN tokens */
+  --primary-navy: var(--primary);
+  --primary-deep: var(--primary);
+  --primary-blue: var(--primary);
+  --primary-light: var(--accent);
+  --accent-cyan: var(--ring);
+
+  --bg-app: var(--background);
+  --bg-surface: var(--card);
+  --bg-sidebar: var(--sidebar);
+  --bg-sidebar-hover: var(--sidebar-accent);
+  --bg-sidebar-active: var(--sidebar-primary);
+
+  --border-light: var(--border);
+  --border-medium: var(--border);
+
+  --text-main: var(--foreground);
+  --text-secondary: var(--muted-foreground);
+  --text-muted: var(--muted-foreground);
+  --text-white: #ffffff;
+
+  --badge-emerald-bg: oklch(0.93 0.05 145);
+  --badge-emerald-text: oklch(0.35 0.12 145);
+  --badge-amber-bg: oklch(0.94 0.06 85);
+  --badge-amber-text: oklch(0.42 0.12 70);
+  --badge-orange-bg: oklch(0.93 0.06 40);
+  --badge-orange-text: var(--primary);
+  --badge-crimson-bg: oklch(0.93 0.05 25);
+  --badge-crimson-text: oklch(0.45 0.15 25);
+  --badge-blue-bg: oklch(0.92 0.05 250);
+  --badge-blue-text: oklch(0.38 0.08 260);
+}
+
+.dark {
+  --background: oklch(0.2178 0 0);
+  --foreground: oklch(0.9219 0 0);
+  --card: oklch(0.2435 0 0);
+  --card-foreground: oklch(0.9219 0 0);
+  --popover: oklch(0.2435 0 0);
+  --popover-foreground: oklch(0.9219 0 0);
+  --primary: oklch(0.6420 0.1691 38.5815);
+  --primary-foreground: oklch(1.0000 0 0);
+  --secondary: oklch(0.3743 0.0726 258.5213);
+  --secondary-foreground: oklch(0.9219 0 0);
+  --muted: oklch(0.2850 0 0);
+  --muted-foreground: oklch(0.5999 0 0);
+  --accent: oklch(0.3380 0.0589 267.5867);
+  --accent-foreground: oklch(0.8823 0.0571 254.1284);
+  --destructive: oklch(0.6368 0.2078 25.3313);
+  --destructive-foreground: oklch(1.0000 0 0);
+  --border: oklch(0.3290 0 0);
+  --input: oklch(0.3092 0 0);
+  --ring: oklch(0.6397 0.1720 36.4421);
+  --chart-1: oklch(0.7124 0.0606 248.6896);
+  --chart-2: oklch(0.6678 0.1546 41.6200);
+  --chart-3: oklch(0.5957 0.1807 19.9763);
+  --chart-4: oklch(0.7859 0.1342 83.6986);
+  --chart-5: oklch(0.4227 0.0732 267.3899);
+  --sidebar: oklch(0.2393 0 0);
+  --sidebar-foreground: oklch(0.9219 0 0);
+  --sidebar-primary: oklch(0.6397 0.1720 36.4421);
+  --sidebar-primary-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.3380 0.0589 267.5867);
+  --sidebar-accent-foreground: oklch(0.8823 0.0571 254.1284);
+  --sidebar-border: oklch(0.3290 0 0);
+  --sidebar-ring: oklch(0.6397 0.1720 36.4421);
+  --font-sans: Segoe UI, Helvetica Neue, Arial, sans-serif;
+  --font-serif: Segoe UI, Helvetica Neue, Arial, sans-serif;
+  --font-mono: Segoe UI, Helvetica Neue, Arial, sans-serif;
+  --radius: 0.5rem;
+  --shadow-x: 0px;
+  --shadow-y: 1px;
+  --shadow-blur: 3px;
+  --shadow-spread: 0px;
+  --shadow-opacity: 0.1;
+  --shadow-color: #1a1a1a;
+  --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.05);
+  --shadow-xs: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.05);
+  --shadow-sm: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.10), 0px 1px 2px -1px hsl(0 0% 10.1961% / 0.10);
+  --shadow: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.10), 0px 1px 2px -1px hsl(0 0% 10.1961% / 0.10);
+  --shadow-md: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.10), 0px 2px 4px -1px hsl(0 0% 10.1961% / 0.10);
+  --shadow-lg: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.10), 0px 4px 6px -1px hsl(0 0% 10.1961% / 0.10);
+  --shadow-xl: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.10), 0px 8px 10px -1px hsl(0 0% 10.1961% / 0.10);
+  --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 10.1961% / 0.25);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, button, input, select, textarea, table, th, td, p, a, h1, h2, h3, h4, h5, h6, label {
+  font-family: Segoe UI, Helvetica Neue, Arial, sans-serif;
+}
+
+span:not(.mat-icon):not(.material-icons):not([class*="mat-icon"]) {
+  font-family: Segoe UI, Helvetica Neue, Arial, sans-serif;
+}
+
+body {
+  font-family: Segoe UI, Helvetica Neue, Arial, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-size: 13.5px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Material Icons Safeguard - Never allow icons to lose their font family */
+mat-icon,
+.mat-icon,
+.material-icons,
+.material-icons-outlined,
+[class*="mat-icon"] {
+  font-family: 'Material Icons' !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  line-height: 1 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  word-wrap: normal !important;
+  direction: ltr !important;
+  -webkit-font-feature-settings: 'liga' !important;
+  -webkit-font-smoothing: antialiased !important;
+  font-variant-ligatures: normal !important;
+}
+
+/* Global Compact Module Layout */
+.module-container {
+  padding: 14px 20px !important;
+  max-width: 1750px;
+  margin: 0 auto;
+}
+
+/* Standardized Header Action Buttons across all pages */
+.btn-export {
+  height: 34px !important;
+  border-radius: var(--radius-sm) !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  border: 1px solid var(--border) !important;
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 0 12px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+
+  &:hover {
+    background-color: var(--accent) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+  }
+
+  mat-icon {
+    font-size: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
+.btn-primary-action {
+  height: 34px !important;
+  border-radius: var(--radius-sm) !important;
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 0 14px !important;
+  cursor: pointer !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.15s ease !important;
+
+  &:hover {
+    opacity: 0.92 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  mat-icon {
+    font-size: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
+/* Standardized Table Action Buttons */
+.actions-group {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.btn-view-details {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  height: 28px;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+
+  &:hover {
+    border-color: var(--primary);
+    background-color: var(--accent);
+    color: var(--primary);
+  }
+
+  .btn-icon, mat-icon {
+    font-size: 15px;
+    width: 15px;
+    height: 15px;
+    color: var(--primary);
+  }
+}
+
+.btn-edit-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  border-radius: var(--radius-sm);
+  color: var(--muted-foreground);
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+
+  &:hover {
+    border-color: var(--primary);
+    background-color: var(--accent);
+    color: var(--primary);
+  }
+
+  .btn-icon, mat-icon {
+    font-size: 15px;
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.btn-delete-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  border-radius: var(--radius-sm);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+
+  &:hover {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2 !important;
+    color: #dc2626 !important;
+  }
+
+  .btn-icon, mat-icon {
+    font-size: 15px;
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* Card System - TweakCN Pure White with Subtle Stone Border */
+.hseq-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  color: var(--card-foreground);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.hseq-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.hseq-card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hseq-card-body {
+  padding: 20px;
+}
+
+/* Status Badge System */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+}
+
+.status-badge.badge-success,
+.status-badge.badge-valid,
+.status-badge.badge-closed,
+.status-badge.badge-completed,
+.status-badge.badge-low {
+  background-color: oklch(0.93 0.06 145);
+  color: oklch(0.38 0.15 145);
+  border: 1px solid oklch(0.85 0.09 145);
+}
+
+.status-badge.badge-warning,
+.status-badge.badge-open,
+.status-badge.badge-active,
+.status-badge.badge-pending,
+.status-badge.badge-medium,
+.status-badge.badge-due {
+  background-color: oklch(0.95 0.08 70);
+  color: oklch(0.48 0.18 65);
+  border: 1px solid oklch(0.88 0.10 70);
+}
+
+.status-badge.badge-danger,
+.status-badge.badge-critical,
+.status-badge.badge-expired,
+.status-badge.badge-overdue,
+.status-badge.badge-high {
+  background-color: oklch(0.93 0.08 25);
+  color: oklch(0.48 0.18 25);
+  border: 1px solid oklch(0.87 0.09 25);
+}
+
+.status-badge.badge-info,
+.status-badge.badge-in-progress,
+.status-badge.badge-scheduled,
+.status-badge.badge-investigating {
+  background-color: oklch(0.93 0.05 240);
+  color: oklch(0.40 0.14 240);
+  border: 1px solid oklch(0.85 0.08 240);
+}
+
+.status-badge.badge-draft,
+.status-badge.badge-inactive,
+.status-badge.badge-deprecated {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
+}
+
+/* Universal Status Pills (Used in Tables, Cards & Detail Pages) */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-pill .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Green: Completed / Closed */
+.status-pill.status-closed,
+.status-pill.status-completed,
+.status-pill.status-valid {
+  background: oklch(0.93 0.06 145);
+  color: oklch(0.38 0.15 145);
+  border: 1px solid oklch(0.85 0.09 145);
+}
+.status-pill.status-closed .status-dot,
+.status-pill.status-completed .status-dot {
+  background: oklch(0.45 0.18 145);
+}
+
+/* Orange: Open / Active / Pending */
+.status-pill.status-open,
+.status-pill.status-active,
+.status-pill.status-pending,
+.status-pill.status-action-pending,
+.status-pill.status-planned {
+  background: oklch(0.95 0.08 70);
+  color: oklch(0.48 0.18 65);
+  border: 1px solid oklch(0.88 0.10 70);
+}
+.status-pill.status-open .status-dot,
+.status-pill.status-active .status-dot,
+.status-pill.status-pending .status-dot {
+  background: oklch(0.60 0.20 65);
+}
+
+/* Blue: In Progress / Scheduled */
+.status-pill.status-in-progress,
+.status-pill.status-scheduled,
+.status-pill.status-under-investigation {
+  background: oklch(0.93 0.05 240);
+  color: oklch(0.40 0.14 240);
+  border: 1px solid oklch(0.85 0.08 240);
+}
+.status-pill.status-in-progress .status-dot,
+.status-pill.status-scheduled .status-dot {
+  background: oklch(0.45 0.16 240);
+}
+
+/* Red: Critical / Overdue / High */
+.status-pill.status-overdue,
+.status-pill.status-critical,
+.status-pill.status-expired {
+  background: oklch(0.93 0.08 25);
+  color: oklch(0.48 0.18 25);
+  border: 1px solid oklch(0.87 0.09 25);
+}
+.status-pill.status-overdue .status-dot,
+.status-pill.status-critical .status-dot {
+  background: oklch(0.55 0.22 25);
+}
+
+/* Gray: Draft / Inactive */
+.status-pill.status-draft,
+.status-pill.status-inactive,
+.status-pill.status-deprecated {
+  background: var(--muted);
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
+}
+.status-pill.status-draft .status-dot,
+.status-pill.status-inactive .status-dot {
+  background: var(--muted-foreground);
+}
+
+/* Primary Action Buttons - Deep Pine Teal with White Text */
+.btn-primary-action,
+.mat-mdc-unelevated-button.mat-primary,
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-flat-button.mat-primary {
+  --mdc-filled-button-container-color: var(--primary) !important;
+  --mdc-filled-button-label-text-color: var(--primary-foreground) !important;
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  font-weight: 600 !important;
+  height: 40px !important;
+  padding: 0 16px !important;
+  border-radius: var(--radius-sm) !important;
+  font-size: 13.5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: opacity 0.15s ease, transform 0.1s ease !important;
+}
+
+.btn-primary-action:hover,
+.mat-mdc-unelevated-button.mat-primary:hover,
+.mat-mdc-raised-button.mat-primary:hover,
+.mat-mdc-flat-button.mat-primary:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+/* Secondary / Export Buttons - Clean Card Surface with Stone Border */
+.btn-export,
+.btn-secondary-action,
+.btn-reset,
+.mat-mdc-outlined-button {
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border) !important;
+  font-weight: 600 !important;
+  height: 40px !important;
+  padding: 0 14px !important;
+  border-radius: var(--radius-sm) !important;
+  font-size: 13px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  box-shadow: var(--shadow-2xs) !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease !important;
+}
+
+.btn-export:hover,
+.btn-secondary-action:hover,
+.mat-mdc-outlined-button:hover {
+  background-color: var(--accent) !important;
+  color: var(--accent-foreground) !important;
+  border-color: var(--border) !important;
+}
+
+/* Data Table Typography & Row Spacing */
+.hseq-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--font-sans);
+}
+
+.hseq-table th {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  font-weight: 700;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.hseq-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--foreground);
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.hseq-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.hseq-table tbody tr:hover {
+  background-color: var(--accent);
+}
+
+.mono-ref {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Flow Stepper Indicator */
+.workflow-stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+
+.stepper-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.stepper-step.completed {
+  color: var(--primary);
+}
+
+.stepper-step.active {
+  color: var(--primary);
+}
+
+.stepper-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.stepper-step.completed .stepper-circle {
+  background: var(--accent);
+  color: var(--primary);
+}
+
+.stepper-step.active .stepper-circle {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.stepper-line {
+  flex: 1;
+  height: 2px;
+  background-color: var(--border);
+  min-width: 24px;
+}
+
+.stepper-line.completed {
+  background-color: var(--primary);
+}
+
+/* Modern Input & Select Controls - Clearly Visible Boxes & Full Width */
+.form-field-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin-bottom: 14px;
+}
+
+.form-field-group .field-label,
+.field-label,
+.form-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 3px;
+  letter-spacing: 0.1px;
+}
+
+.custom-input,
+.custom-select,
+textarea.custom-input {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: block;
+  height: 40px;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-sm);
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
+  padding: 0 13px;
+  font-size: 13.5px;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.custom-select {
+  padding-right: 34px !important;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 12px center !important;
+}
+
+textarea.custom-input,
+textarea.custom-input.textarea-tall {
+  height: auto !important;
+  min-height: 84px !important;
+  padding: 10px 13px !important;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.custom-input:focus,
+.custom-select:focus,
+textarea.custom-input:focus {
+  border-color: var(--ring) !important;
+  box-shadow: 0 0 0 3px oklch(0.6420 0.1691 38.5815 / 0.18) !important;
+}
+
+/* Universal rule: All inputs, selects, and textareas inside modals must be full-width with a solid border box */
+.form-field-group input:not([type="checkbox"]):not([type="radio"]),
+.form-field-group select,
+.form-field-group textarea,
+.hseq-modal-body input:not([type="checkbox"]):not([type="radio"]),
+.hseq-modal-body select,
+.hseq-modal-body textarea {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: block !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  background-color: var(--card) !important;
+  color: var(--foreground) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13.5px !important;
+  outline: none !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+}
+
+.form-field-group input:not([type="checkbox"]):not([type="radio"]),
+.hseq-modal-body input:not([type="checkbox"]):not([type="radio"]) {
+  height: 40px !important;
+  padding: 0 13px !important;
+}
+
+.form-field-group select,
+.hseq-modal-body select {
+  height: 40px !important;
+  padding: 0 34px 0 13px !important;
+  cursor: pointer !important;
+}
+
+.form-field-group textarea,
+.hseq-modal-body textarea {
+  min-height: 84px !important;
+  padding: 10px 13px !important;
+  line-height: 1.5 !important;
+  resize: vertical !important;
+}
+
+.form-field-group input:focus,
+.form-field-group select:focus,
+.form-field-group textarea:focus,
+.hseq-modal-body input:focus,
+.hseq-modal-body select:focus,
+.hseq-modal-body textarea:focus {
+  border-color: var(--ring) !important;
+  box-shadow: 0 0 0 3px oklch(0.6420 0.1691 38.5815 / 0.18) !important;
+}
+
+/* Table Pagination Bar */
+.table-pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px;
+  color: var(--muted-foreground);
+  background-color: var(--card);
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-btn {
+  height: 32px;
+  min-width: 32px;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.page-btn.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Sortable Table Header */
+.sortable-th {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s ease;
+}
+
+.sortable-th:hover {
+  color: var(--primary);
+}
+
+.sort-icon {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  margin-left: 3px;
+  color: var(--muted-foreground);
+}
+
+/* Modal Dialog Overlay System */
+.hseq-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 31, 29, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: modalFadeIn 0.15s ease;
+}
+
+.hseq-modal-dialog {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xl);
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalScaleUp 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalScaleUp {
+  from { transform: scale(0.96); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Material Toolbar & Menu Overrides */
+.mat-mdc-menu-panel {
+  background-color: var(--popover) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.mat-mdc-menu-item {
+  color: var(--popover-foreground) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+}
+
+.mat-mdc-menu-item:hover {
+  background-color: var(--accent) !important;
+  color: var(--accent-foreground) !important;
+}
+
+/* Modal Sub-elements */
+.hseq-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+}
+
+.modal-header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--foreground);
+    margin: 0;
+  }
+
+  p {
+    font-size: 12.5px;
+    color: var(--muted-foreground);
+    margin: 2px 0 0 0;
+  }
+}
+
+.hseq-modal-body {
+  padding: 22px 24px;
+  overflow-y: auto;
+  max-height: calc(85vh - 130px);
+  background: var(--card);
+  color: var(--foreground);
+}
+
+.hseq-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--border);
+  background: var(--muted);
+
+  [modal-footer],
+  [modal-actions] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    width: 100%;
+  }
+
+  button {
+    margin: 0 !important;
+  }
+}
+
+[modal-footer],
+[modal-actions] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Global Utility Mappings to TweakCN Tokens */
+.text-blue,
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-gold,
+.text-amber {
+  color: var(--secondary-foreground) !important;
+}
+
+.bg-accent-tint,
+.bg-blue-tint {
+  background: var(--accent) !important;
+  color: var(--accent-foreground) !important;
+}
+
+/* Pills and Badges aligned with TweakCN Theme */
+.type-pill,
+.tag-default,
+.cert-cat-pill,
+.vessel-type-tag,
+.rev-badge,
+.permit-type-badge,
+.flag-pill {
+  background-color: var(--accent) !important;
+  color: var(--primary) !important;
+  border: 1px solid var(--border) !important;
+  font-weight: 600;
+}
+
+
+
+/* ═══════════════════════════════════════════════════
+   GLOBAL ENTERPRISE POLISH
+   Consistent interactions across the entire platform
+═══════════════════════════════════════════════════ */
+
+/* Universal focus ring — keyboard accessible */
+*:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Remove default focus for mouse users where custom styles apply */
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+select:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Consistent native <select> styling ── */
+select.custom-select,
+select.form-select,
+select {
+  appearance: auto;
+  cursor: pointer;
+}
+
+select.custom-select:focus,
+select.form-input:focus {
+  border-color: var(--ring) !important;
+  box-shadow: 0 0 0 3px oklch(0.6420 0.1691 38.5815 / 0.18) !important;
+}
+
+/* ── Textarea consistent with inputs ── */
+textarea.custom-input {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: block;
+  min-height: 84px;
+  padding: 10px 13px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+textarea.custom-input:focus {
+  border-color: var(--ring) !important;
+  box-shadow: 0 0 0 3px oklch(0.6420 0.1691 38.5815 / 0.18) !important;
+}
+
+/* ── Material Checkbox — align with Spruce theme ── */
+.mat-mdc-checkbox .mdc-checkbox__background {
+  border-color: var(--border) !important;
+  border-radius: 4px !important;
+}
+
+.mat-mdc-checkbox.mat-primary .mdc-checkbox--selected .mdc-checkbox__background {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.mat-mdc-checkbox .mdc-label {
+  font-family: var(--font-sans) !important;
+  font-size: 12.5px !important;
+  color: var(--foreground) !important;
+}
+
+/* ── Material Menu panel — smooth open/close ── */
+.mat-mdc-menu-panel {
+  animation: menuFadeIn 0.14s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transform-origin: top right;
+}
+
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── Material Menu items — consistent height and hover ── */
+.mat-mdc-menu-item {
+  height: 42px !important;
+  min-height: 42px !important;
+  transition: background-color 0.12s ease !important;
+}
+
+.mat-mdc-menu-item .mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  margin-right: 12px !important;
+  color: var(--muted-foreground) !important;
+}
+
+.mat-mdc-menu-item:hover .mat-icon {
+  color: var(--primary) !important;
+}
+
+/* ── Icon buttons — consistent single-layer interactive states (prevents duplicate hover boxes) ── */
+.mat-mdc-button-persistent-ripple,
+.mat-mdc-button-persistent-ripple::before,
+.mat-mdc-focus-indicator::before {
+  display: none !important;
+}
+
+.mat-mdc-icon-button {
+  --mat-icon-button-hover-state-layer-opacity: 0 !important;
+  --mat-icon-button-focus-state-layer-opacity: 0 !important;
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+.mat-mdc-icon-button:hover {
+  background-color: var(--accent) !important;
+  color: var(--primary) !important;
+}
+
+/* ── Stroked buttons — refined secondary action ── */
+.mat-mdc-outlined-button,
+button[mat-stroked-button] {
+  border-color: var(--border) !important;
+  color: var(--foreground) !important;
+  font-weight: 600 !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease !important;
+}
+
+.mat-mdc-outlined-button:hover,
+button[mat-stroked-button]:hover {
+  background-color: var(--accent) !important;
+  border-color: var(--ring) !important;
+  color: var(--accent-foreground) !important;
+}
+
+/* ── Form label consistency ── */
+.field-label,
+.form-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--foreground);
+  letter-spacing: 0.1px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ── Required field asterisk ── */
+.text-red,
+.required-star {
+  color: var(--destructive) !important;
+}
+
+/* ── Smooth page content transition ── */
+.page-fade-in {
+  animation: pageFadeIn 0.2s ease;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Info/Alert box used in modals and forms ── */
+.alert-info-box,
+.alert-box-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--primary);
+  line-height: 1.4;
+}
+
+.alert-warning-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: oklch(0.95 0.04 78);
+  border: 1px solid oklch(0.88 0.06 80);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: oklch(0.40 0.10 70);
+  line-height: 1.4;
+}
+
+.alert-danger-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: oklch(0.95 0.04 25);
+  border: 1px solid oklch(0.88 0.06 25);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--destructive);
+  line-height: 1.4;
+}
+
+/* ── Consistent gap utility for flex footers ── */
+.d-flex { display: flex; }
+.gap-2  { gap: 8px; }
+.gap-3  { gap: 12px; }
+.flex-end { justify-content: flex-end; }
