@@ -127,20 +127,23 @@ import { NearMissRecord } from '../../core/models/hseq.models';
                 <label class="field-label" for="location">
                   Occurrence Location <span class="required-star">*</span>
                 </label>
-                <input 
+                <select 
                   id="location"
-                  type="text" 
-                  list="portLocationsList"
                   [(ngModel)]="formModel.location" 
                   (ngModelChange)="clearFieldError('location')"
-                  placeholder="e.g. AUX Room STBD, SAFANIYAH PIER, West Pier - Ras Tanura" 
-                  class="custom-input"
-                  [class.input-error]="fieldErrors()['location']" />
-                <datalist id="portLocationsList">
+                  class="custom-select"
+                  [class.input-error]="fieldErrors()['location']">
+                  <option value="">-- Select Occurrence Location --</option>
                   @for (p of state.ports(); track p.id) {
                     <option [value]="p.name">{{ p.name }} ({{ p.country }})</option>
                   }
-                </datalist>
+                  <option value="AUX Room STBD">AUX Room STBD</option>
+                  <option value="Engine Room Lower Platform">Engine Room Lower Platform</option>
+                  <option value="Main Deck Portside">Main Deck Portside</option>
+                  <option value="Forward Mooring Station">Forward Mooring Station</option>
+                  <option value="Bridge Wing Port">Bridge Wing Port</option>
+                  <option value="Steering Gear Flat">Steering Gear Flat</option>
+                </select>
                 @if (fieldErrors()['location']) {
                   <div class="field-error-msg">
                     <mat-icon class="error-icon">error_outline</mat-icon>
@@ -152,13 +155,19 @@ import { NearMissRecord } from '../../core/models/hseq.models';
               <!-- Reported By -->
               <div class="form-field-group">
                 <label class="field-label" for="reportedBy">Reported By</label>
-                <input 
+                <select 
                   id="reportedBy"
-                  type="text" 
                   [(ngModel)]="formModel.reportedBy" 
-                  placeholder="e.g. Master Laurent Bonelli, Chief Officer" 
-                  class="custom-input" />
-                <span class="field-hint">Officer or personnel submitting the initial report</span>
+                  class="custom-select">
+                  <option value="">-- Select Reporting Officer / Seafarer --</option>
+                  @for (u of state.users(); track u.id) {
+                    <option [value]="u.fullName">{{ u.fullName }} ({{ u.roles.join(', ') }} · {{ u.assignedVessels.join(', ') }})</option>
+                  }
+                  @for (c of state.crewMembers(); track c.id) {
+                    <option [value]="c.name">{{ c.name }} ({{ c.rank }} · {{ c.vesselName }})</option>
+                  }
+                </select>
+                <span class="field-hint">Officer or personnel submitting the initial report (Master Data User/Crew)</span>
               </div>
             </div>
           </div>

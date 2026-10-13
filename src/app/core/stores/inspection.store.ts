@@ -514,7 +514,22 @@ export class InspectionStore {
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+          return parsed.map((item: any) => ({
+            ...item,
+            nameOfInspectors: item.nameOfInspectors || item.inspectorName || item.picName || '',
+            typeOfInspectors: item.typeOfInspectors || item.inspectorType || item.picRole || 'Auditor',
+            inspectorName: item.inspectorName || item.nameOfInspectors || item.picName || '',
+            inspectorType: item.inspectorType || item.typeOfInspectors || item.picRole || 'Auditor',
+            picName: item.picName || item.nameOfInspectors || item.inspectorName || '',
+            picRole: item.picRole || item.typeOfInspectors || item.inspectorType || 'Auditor',
+            dueDate: item.dueDate || item.nextDue || item.nextInspectionDate || '',
+            nextDue: item.nextDue || item.dueDate || item.nextInspectionDate || 'TBD',
+            nextInspectionDate: item.nextInspectionDate || item.dueDate || item.nextDue || '',
+            dueWindow: item.dueWindow || item.windowPeriod || '',
+            windowOpening: item.windowOpening || '',
+            intervalDays: item.intervalDays !== undefined ? Number(item.intervalDays) : 365,
+            statusNextInspection: item.statusNextInspection || item.statusNext || 'Planned'
+          }));
         }
       }
     } catch (e) {
@@ -559,7 +574,7 @@ export class InspectionStore {
   }
 
   create(data: Partial<InspectionTrackerRecord>): InspectionTrackerRecord {
-    const id = `INS-${Date.now().toString().slice(-4)}`;
+    const id = data.id || `INS-${Date.now().toString().slice(-4)}`;
     const findings = (data.findings || []).map((f: any, idx: number) => ({
       ...f,
       id: f.id || `${id}-F${String(idx + 1).padStart(2, '0')}`,
@@ -571,16 +586,25 @@ export class InspectionStore {
 
     const counts = InspectionStore.calculateFindingsSummary(findings);
 
+    const inspectorName = data.nameOfInspectors || data.inspectorName || data.picName || '';
+    const inspectorType = data.typeOfInspectors || data.inspectorType || data.picRole || 'Auditor';
+    const dueDateVal = data.dueDate || data.nextDue || data.nextInspectionDate || '';
+    const dueWindowVal = data.dueWindow || (data as any).windowPeriod || '';
+    const windowOpeningVal = data.windowOpening || '';
+    const intervalDaysVal = data.intervalDays !== undefined ? Number(data.intervalDays) : 365;
+    const statusNextVal = data.statusNextInspection || (data as any).statusNext || 'Planned';
+
     const newRecord: InspectionTrackerRecord = {
+      ...data,
       id,
       vesselName: data.vesselName || 'MV Pacific Voyager',
       takeoverDate: data.takeoverDate || '',
       vesselType: data.vesselType || 'Crew Boat',
-      typeOfInspection: data.typeOfInspection || (data as any).inspectionType || 'QSI',
-      categoryOfInspection: data.categoryOfInspection || (data as any).inspectionCategory || 'Internal',
+      typeOfInspection: data.typeOfInspection || (data as any).inspectionCategory || (data as any).inspectionType || 'Internal',
+      categoryOfInspection: data.categoryOfInspection || (data as any).inspectionType || (data as any).inspectionCategory || 'QSI',
       period: data.period || 'Q3 2026',
       dateOfInspection: data.dateOfInspection || new Date().toISOString().substring(0, 10),
-      nextInspectionDate: data.nextInspectionDate || '',
+      nextInspectionDate: dueDateVal,
       findingsLow: findings.length > 0 ? counts.findingsLow : Number(data.findingsLow || 0),
       findingsMedium: findings.length > 0 ? counts.findingsMedium : Number(data.findingsMedium || 0),
       findingsHigh: findings.length > 0 ? counts.findingsHigh : Number(data.findingsHigh || 0),
@@ -590,9 +614,18 @@ export class InspectionStore {
       closedHigh: findings.length > 0 ? counts.closedHigh : Number(data.closedHigh || 0),
       closedTotal: findings.length > 0 ? counts.closedTotal : Number(data.closedTotal || 0),
       status: data.status || (findings.length > 0 && counts.closedTotal === counts.findingsTotal ? 'Completed' : 'Open'),
-      nextDue: data.nextDue || data.nextInspectionDate || 'TBD',
-      picName: data.picName || '',
-      picRole: data.picRole || 'HSEQ Officer',
+      nextDue: dueDateVal || 'TBD',
+      dueDate: dueDateVal,
+      dueWindow: dueWindowVal,
+      windowOpening: windowOpeningVal,
+      intervalDays: intervalDaysVal,
+      statusNextInspection: statusNextVal,
+      nameOfInspectors: inspectorName,
+      typeOfInspectors: inspectorType,
+      inspectorName: inspectorName,
+      inspectorType: inspectorType,
+      picName: inspectorName,
+      picRole: inspectorType,
       score: data.score !== undefined ? Number(data.score) : 90,
       findings
     };
@@ -619,12 +652,29 @@ export class InspectionStore {
               closedTotal: updates.closedTotal !== undefined ? Number(updates.closedTotal) : item.closedTotal,
             };
 
+          const inspectorName = updates.nameOfInspectors || updates.inspectorName || updates.picName || item.nameOfInspectors || item.inspectorName || item.picName || '';
+          const inspectorType = updates.typeOfInspectors || updates.inspectorType || updates.picRole || item.typeOfInspectors || item.inspectorType || item.picRole || 'Auditor';
+          const dueDateVal = updates.dueDate || updates.nextDue || updates.nextInspectionDate || item.dueDate || item.nextDue || item.nextInspectionDate || '';
+
           return {
             ...item,
             ...updates,
             findings,
-            typeOfInspection: updates.typeOfInspection || (updates as any).inspectionType || item.typeOfInspection,
-            categoryOfInspection: updates.categoryOfInspection || (updates as any).inspectionCategory || item.categoryOfInspection,
+            typeOfInspection: updates.typeOfInspection || (updates as any).inspectionCategory || (updates as any).inspectionType || item.typeOfInspection,
+            categoryOfInspection: updates.categoryOfInspection || (updates as any).inspectionType || (updates as any).inspectionCategory || item.categoryOfInspection,
+            nameOfInspectors: inspectorName,
+            typeOfInspectors: inspectorType,
+            inspectorName: inspectorName,
+            inspectorType: inspectorType,
+            picName: inspectorName,
+            picRole: inspectorType,
+            dueDate: dueDateVal,
+            nextDue: dueDateVal || item.nextDue || 'TBD',
+            nextInspectionDate: dueDateVal,
+            intervalDays: updates.intervalDays !== undefined ? Number(updates.intervalDays) : item.intervalDays,
+            dueWindow: updates.dueWindow !== undefined ? updates.dueWindow : item.dueWindow,
+            windowOpening: updates.windowOpening !== undefined ? updates.windowOpening : item.windowOpening,
+            statusNextInspection: updates.statusNextInspection !== undefined ? updates.statusNextInspection : item.statusNextInspection,
             ...counts
           };
         }

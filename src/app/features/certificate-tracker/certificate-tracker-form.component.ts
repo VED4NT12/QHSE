@@ -119,13 +119,20 @@ import { HseqStateService } from '../../core/services/hseq-state.service';
           <!-- Issuing Authority -->
           <div class="form-field" [class.has-error]="fieldErrors()['issuingAuthority']">
             <label>Issuing Authority <span class="required-star">*</span></label>
-            <input 
-              type="text" 
+            <select 
               [(ngModel)]="form.issuingAuthority" 
               (ngModelChange)="clearError('issuingAuthority')"
-              placeholder="e.g. TGA, ABS, CSTC" 
               class="field-input"
               [class.input-error]="fieldErrors()['issuingAuthority']">
+              <option value="">-- Select Issuing Authority --</option>
+              @for (auth of state.getMasterList('Issuing Authorities'); track auth.id) {
+                <option [value]="auth.name">{{ auth.name }} ({{ auth.code }})</option>
+              }
+              <option value="DNV">DNV (Det Norske Veritas)</option>
+              <option value="ABS">ABS (American Bureau of Shipping)</option>
+              <option value="Lloyd's Register">Lloyd's Register</option>
+              <option value="Bureau Veritas">Bureau Veritas</option>
+            </select>
             @if (fieldErrors()['issuingAuthority']) {
               <div class="field-error-msg">
                 <mat-icon class="err-icon">error_outline</mat-icon>
@@ -155,10 +162,13 @@ import { HseqStateService } from '../../core/services/hseq-state.service';
             }
           </div>
 
-          <!-- Certificate Type -->
+          <!-- Certificate Type / Category -->
           <div class="form-field">
-            <label>Certificate Type</label>
+            <label>Certificate Category</label>
             <select [(ngModel)]="form.certificateType" class="field-input">
+              @for (cat of state.getMasterList('Certificate Categories'); track cat.id) {
+                <option [value]="cat.name">{{ cat.name }}</option>
+              }
               <option value="Full term">Full term</option>
               <option value="Permanent">Permanent</option>
               <option value="Interim">Interim</option>

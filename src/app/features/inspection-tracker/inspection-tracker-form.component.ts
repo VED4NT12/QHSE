@@ -203,19 +203,22 @@ import { HseqStateService } from '../../core/services/hseq-state.service';
           <!-- PIC / Inspector Name (Span 4) -->
           <div class="form-field span-4" [class.has-error]="fieldErrors()['picName']">
             <label>Inspector Name(s) <span class="required-star">*</span></label>
-            <input 
-              type="text" 
-              list="inspectorDatalist"
+            <select 
               [(ngModel)]="form.picName" 
               (ngModelChange)="onInspectorChange($event)"
-              placeholder="e.g. Capt. J. Vance / Surveyor Vance" 
               class="field-input"
               [class.input-error]="fieldErrors()['picName']">
-            <datalist id="inspectorDatalist">
+              <option value="">-- Select Inspector Name --</option>
+              @for (u of state.users(); track u.id) {
+                <option [value]="u.fullName">{{ u.fullName }} ({{ u.roles.join(', ') }} · {{ u.assignedVessels.join(', ') }})</option>
+              }
               @for (ins of state.inspectors(); track ins.id) {
                 <option [value]="ins.name">{{ ins.name }} ({{ ins.role }} - {{ ins.organization }})</option>
               }
-            </datalist>
+              @for (crew of state.crewMembers(); track crew.id) {
+                <option [value]="crew.name">{{ crew.name }} ({{ crew.rank }} - {{ crew.vesselName }})</option>
+              }
+            </select>
             @if (fieldErrors()['picName']) {
               <div class="field-error-msg">
                 <mat-icon class="err-icon">error_outline</mat-icon>
@@ -656,6 +659,11 @@ export class InspectionTrackerFormComponent implements OnInit {
     const matched = this.state.inspectors().find(i => i.name.toLowerCase() === name.toLowerCase());
     if (matched) {
       this.form.picRole = matched.role || matched.organization;
+    } else {
+      const crewMatched = this.state.crewMembers().find(c => c.name.toLowerCase() === name.toLowerCase());
+      if (crewMatched) {
+        this.form.picRole = crewMatched.rank;
+      }
     }
   }
 
@@ -768,6 +776,8 @@ export class InspectionTrackerFormComponent implements OnInit {
     // Synchronize aliases with Excel column names
     this.form.nameOfInspectors = this.form.picName;
     this.form.typeOfInspectors = this.form.picRole;
+    this.form.inspectorName = this.form.picName;
+    this.form.inspectorType = this.form.picRole;
     this.form.typeOfInspection = this.form.inspectionCategory;
     this.form.categoryOfInspection = this.form.inspectionType;
     this.form.dueDate = this.form.nextInspectionDate;

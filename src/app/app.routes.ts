@@ -23,6 +23,10 @@ import { SafeObservationListComponent } from './features/safe-observations/safe-
 import { SafeObservationFormComponent } from './features/safe-observations/safe-observation-form.component';
 import { SafeObservationDetailComponent } from './features/safe-observations/safe-observation-detail.component';
 
+// Hours of Rest (HoR) Module (Form 05F-006-03 & STCW 2010 / MLC 2006)
+import { HoursOfRestListComponent } from './features/hours-of-rest/hours-of-rest-list.component';
+import { HoursOfRestEntryComponent } from './features/hours-of-rest/hours-of-rest-entry.component';
+
 // Preserved module imports (Ready for subsequent Excel requirements)
 import { ReportsComponent } from './features/reports/reports.component';
 import { InspectionListComponent } from './features/inspections/inspection-list.component';
@@ -34,8 +38,10 @@ import { SafeCardListComponent } from './features/safe-cards/safe-card-list.comp
 import { SafeCardCreateComponent } from './features/safe-cards/safe-card-create.component';
 import { RiskAssessmentListComponent } from './features/risk-assessment/risk-assessment-list.component';
 import { RiskAssessmentDetailComponent } from './features/risk-assessment/risk-assessment-detail.component';
+import { RiskAssessmentFormComponent } from './features/risk-assessment/risk-assessment-form.component';
 import { PermitListComponent } from './features/permits/permit-list.component';
 import { PermitDetailComponent } from './features/permits/permit-detail.component';
+import { PermitFormComponent } from './features/permits/permit-form.component';
 import { CertificateListComponent } from './features/certificates/certificate-list.component';
 import { DmsListComponent } from './features/dms/dms-list.component';
 import { VisitsListComponent } from './features/visits/visits-list.component';
@@ -87,6 +93,12 @@ export const routes: Routes = [
       { path: 'safe-observations/edit/:id', component: SafeObservationFormComponent },
       { path: 'safe-observations/:id', component: SafeObservationDetailComponent },
 
+      // Hours of Rest (HoR) Routes
+      { path: 'hours-of-rest', component: HoursOfRestListComponent },
+      { path: 'hours-of-rest/entry/:crewId', component: HoursOfRestEntryComponent },
+      { path: 'hours-of-rest/entry', component: HoursOfRestEntryComponent },
+      { path: 'hours-of-rest/:id', redirectTo: 'hours-of-rest', pathMatch: 'full' },
+
       // 2. PRESERVED MODULE ROUTES (Architecturally intact for future Excel rollout)
       { path: 'reports', component: ReportsComponent },
       { path: 'inspections', component: InspectionListComponent },
@@ -98,9 +110,12 @@ export const routes: Routes = [
       { path: 'safe-cards', component: SafeCardListComponent },
       { path: 'safe-cards/create', component: SafeCardCreateComponent },
       { path: 'risk-assessment', component: RiskAssessmentListComponent },
+      { path: 'risk-assessment/create', component: RiskAssessmentFormComponent },
+      { path: 'risk-assessment/edit/:id', component: RiskAssessmentFormComponent },
       { path: 'risk-assessment/:id', component: RiskAssessmentDetailComponent },
       { path: 'permits', component: PermitListComponent },
-      { path: 'permits/create', redirectTo: 'permits', pathMatch: 'full' },
+      { path: 'permits/create', component: PermitFormComponent },
+      { path: 'permits/edit/:id', component: PermitFormComponent },
       { path: 'permits/:id', component: PermitDetailComponent },
       { path: 'certificates', component: CertificateListComponent },
       { path: 'dms', component: DmsListComponent },

@@ -235,7 +235,7 @@ import { ChartWrapperComponent, ChartDataPoint } from '../../shared/components/c
       <!-- Middle Split: Safety Pyramid & Active High-Risk Operations -->
       <div class="grid-2col mt-4">
         <!-- Safety Pyramid & Culture Analysis -->
-        <div class="hseq-card">
+        <div class="hseq-card dashboard-widget-card">
           <div class="hseq-card-header">
             <div class="card-title-group">
               <mat-icon class="card-icon text-blue">equalizer</mat-icon>
@@ -264,14 +264,68 @@ import { ChartWrapperComponent, ChartDataPoint } from '../../shared/components/c
             <div class="culture-footer">
               <p class="culture-note">
                 <mat-icon class="info-icon">lightbulb</mat-icon>
-                <strong>Proactive Ratio:</strong> For every incident reported, <strong>{{ kpis().safeCardsCount + kpis().nearMissCount }}</strong> proactive safety observations and hazard hunts were logged.
+                <span><strong>Proactive Ratio:</strong> For every incident reported, <strong>{{ kpis().safeCardsCount + kpis().nearMissCount }}</strong> proactive safety observations and hazard hunts were logged.</span>
               </p>
             </div>
+
+            <!-- Quick Safety Culture Metrics (fills blank space & balances height) -->
+            <div class="pyramid-metrics-grid">
+              <div class="p-metric-card" routerLink="/injuries">
+                <div class="p-metric-icon bg-green-tint">
+                  <mat-icon class="text-green">health_and_safety</mat-icon>
+                </div>
+                <div class="p-metric-data">
+                  <span class="p-metric-val">{{ kpis().injuryLtiCount }}</span>
+                  <span class="p-metric-lbl">Lost Time Injuries</span>
+                  <span class="p-metric-sub text-green">Zero Harm Target Met</span>
+                </div>
+              </div>
+
+              <div class="p-metric-card" routerLink="/near-miss">
+                <div class="p-metric-icon bg-amber-tint">
+                  <mat-icon class="text-amber">warning_amber</mat-icon>
+                </div>
+                <div class="p-metric-data">
+                  <span class="p-metric-val">{{ kpis().nearMissCount }}</span>
+                  <span class="p-metric-lbl">Near Misses Logged</span>
+                  <span class="p-metric-sub">Hazard Hunt Active</span>
+                </div>
+              </div>
+
+              <div class="p-metric-card" routerLink="/safe-cards">
+                <div class="p-metric-icon bg-blue-tint">
+                  <mat-icon class="text-blue">assignment_turned_in</mat-icon>
+                </div>
+                <div class="p-metric-data">
+                  <span class="p-metric-val">{{ kpis().safeCardsCount }}</span>
+                  <span class="p-metric-lbl">Safe Observation Cards</span>
+                  <span class="p-metric-sub">{{ kpis().safeActsRatio }}% Positive Acts</span>
+                </div>
+              </div>
+
+              <div class="p-metric-card" routerLink="/inspections">
+                <div class="p-metric-icon bg-teal-tint">
+                  <mat-icon class="text-primary">fact_check</mat-icon>
+                </div>
+                <div class="p-metric-data">
+                  <span class="p-metric-val">{{ kpis().inspectionComplianceRate }}%</span>
+                  <span class="p-metric-lbl">Audit Adherence</span>
+                  <span class="p-metric-sub">Above 90% Target</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer-action">
+            <span class="text-xs text-muted">Safety Performance: <strong>Target Exceeded</strong></span>
+            <button mat-button class="btn-see-more" routerLink="/safe-cards">
+              <span>View Safety Observations</span>
+              <mat-icon class="icon-inline">arrow_forward</mat-icon>
+            </button>
           </div>
         </div>
 
         <!-- High-Risk Operations & Active PTW -->
-        <div class="hseq-card">
+        <div class="hseq-card dashboard-widget-card">
           <div class="hseq-card-header">
             <div class="card-title-group">
               <mat-icon class="card-icon text-amber">vpn_key</mat-icon>
@@ -283,7 +337,7 @@ import { ChartWrapperComponent, ChartDataPoint } from '../../shared/components/c
             <button mat-button class="view-all-link" routerLink="/permits">View All ({{ state.permits().length }})</button>
           </div>
           <div class="hseq-card-body p-0">
-            <div *ngFor="let p of state.permits()" class="permit-strip" [routerLink]="['/permits', p.id]">
+            <div *ngFor="let p of recentPermits()" class="permit-strip" [routerLink]="['/permits', p.id]">
               <div class="permit-main">
                 <div class="permit-type-badge">{{ p.permitType }}</div>
                 <div class="permit-info">
@@ -296,6 +350,13 @@ import { ChartWrapperComponent, ChartDataPoint } from '../../shared/components/c
                 <span class="permit-auth">Auth: {{ p.approvingAuthority }}</span>
               </div>
             </div>
+          </div>
+          <div class="card-footer-action">
+            <span class="text-xs text-muted">Showing 5 of {{ state.permits().length }} active permits</span>
+            <button mat-button class="btn-see-more" routerLink="/permits">
+              <span>View All Permits</span>
+              <mat-icon class="icon-inline">arrow_forward</mat-icon>
+            </button>
           </div>
         </div>
       </div>
@@ -329,7 +390,7 @@ import { ChartWrapperComponent, ChartDataPoint } from '../../shared/components/c
       <!-- Bottom Split: Consolidated CAPAs & Certificate Status -->
       <div class="grid-2col mt-4">
         <!-- Universal CAPA Summary -->
-        <div class="hseq-card">
+        <div class="hseq-card dashboard-widget-card">
           <div class="hseq-card-header">
             <div class="card-title-group">
               <mat-icon class="card-icon text-red">task_alt</mat-icon>
@@ -338,7 +399,7 @@ import { ChartWrapperComponent, ChartDataPoint } from '../../shared/components/c
                 <span class="card-subheading">Actions originating across Inspections, Incidents & Visits</span>
               </div>
             </div>
-            <button mat-flat-button color="primary" class="btn-sm" routerLink="/capa">Open CAPA Register</button>
+            <button mat-button class="view-all-link" routerLink="/capa">View All ({{ state.capas().length }})</button>
           </div>
           <div class="hseq-card-body p-0">
             <table class="hseq-table">
@@ -365,10 +426,17 @@ import { ChartWrapperComponent, ChartDataPoint } from '../../shared/components/c
               </tbody>
             </table>
           </div>
+          <div class="card-footer-action">
+            <span class="text-xs text-muted">Showing {{ state.capas().length }} priority actions</span>
+            <button mat-button class="btn-see-more" routerLink="/capa">
+              <span>Open CAPA Register</span>
+              <mat-icon class="icon-inline">arrow_forward</mat-icon>
+            </button>
+          </div>
         </div>
 
         <!-- Statutory Certificates & Expiry Timeline -->
-        <div class="hseq-card">
+        <div class="hseq-card dashboard-widget-card">
           <div class="hseq-card-header">
             <div class="card-title-group">
               <mat-icon class="card-icon text-purple">verified</mat-icon>
@@ -377,7 +445,7 @@ import { ChartWrapperComponent, ChartDataPoint } from '../../shared/components/c
                 <span class="card-subheading">Upcoming statutory, flag and class surveys</span>
               </div>
             </div>
-            <button mat-button class="view-all-link" routerLink="/certificates">Open Register</button>
+            <button mat-button class="view-all-link" routerLink="/certificates">View All ({{ state.certificates().length }})</button>
           </div>
           <div class="hseq-card-body p-0">
             <table class="hseq-table">
@@ -404,6 +472,13 @@ import { ChartWrapperComponent, ChartDataPoint } from '../../shared/components/c
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div class="card-footer-action">
+            <span class="text-xs text-muted">Upcoming flag, class & statutory surveys</span>
+            <button mat-button class="btn-see-more" routerLink="/certificates">
+              <span>Open Certificate Register</span>
+              <mat-icon class="icon-inline">arrow_forward</mat-icon>
+            </button>
           </div>
         </div>
       </div>
@@ -859,6 +934,135 @@ import { ChartWrapperComponent, ChartDataPoint } from '../../shared/components/c
       border-radius: 4px;
     }
 
+    .dashboard-widget-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .card-footer-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+      border-top: 1px solid var(--border);
+      background: var(--muted);
+      border-bottom-left-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
+      margin-top: auto;
+    }
+
+    .btn-see-more {
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      color: var(--primary) !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+      padding: 0 8px !important;
+      height: 28px !important;
+      transition: gap 0.15s ease !important;
+    }
+
+    .btn-see-more:hover {
+      gap: 8px !important;
+      color: var(--primary) !important;
+    }
+
+    .btn-see-more .icon-inline {
+      font-size: 15px !important;
+      width: 15px !important;
+      height: 15px !important;
+    }
+
+    .live-count-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      background: var(--accent);
+      color: var(--primary);
+      border: 1px solid var(--border);
+    }
+
+    /* Pyramid Metrics Grid */
+    .pyramid-metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .p-metric-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .p-metric-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .p-metric-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .p-metric-icon mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+
+    .bg-green-tint { background: oklch(0.93 0.06 145); }
+    .bg-amber-tint { background: oklch(0.95 0.08 70); }
+    .bg-blue-tint  { background: oklch(0.92 0.05 240); }
+    .bg-teal-tint  { background: oklch(0.92 0.04 180); }
+
+    .p-metric-data {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .p-metric-val {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--foreground);
+      line-height: 1.1;
+    }
+
+    .p-metric-lbl {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted-foreground);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .p-metric-sub {
+      font-size: 9.5px;
+      color: var(--muted-foreground);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     @media (max-width: 1024px) {
       .grid-2col {
         grid-template-columns: 1fr;
@@ -879,6 +1083,11 @@ export class DashboardComponent {
   private notify = inject(NotificationService);
 
   kpis = this.state.dashboardKpis;
+
+  // Latest 5 permits for dashboard executive overview
+  readonly recentPermits = computed(() => {
+    return this.state.permits().slice(0, 5);
+  });
 
   // Monthly trends
   readonly monthlyEventTrends = computed<ChartDataPoint[]>(() => {

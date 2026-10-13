@@ -138,19 +138,22 @@ import { HseqStateService } from '../../core/services/hseq-state.service';
           <!-- Inspectors -->
           <div class="form-field form-field-full" [class.has-error]="fieldErrors()['inspectors']">
             <label>Inspectors / Surveyors <span class="required-star">*</span></label>
-            <input 
-              type="text" 
-              list="onHireInspectorList"
+            <select 
               [(ngModel)]="form.inspectors" 
               (ngModelChange)="clearError('inspectors')"
-              placeholder="e.g. Capt. J. Vance, PETER McPARLIN" 
               class="field-input"
               [class.input-error]="fieldErrors()['inspectors']">
-            <datalist id="onHireInspectorList">
+              <option value="">-- Select Inspector / Surveyor --</option>
+              @for (u of state.users(); track u.id) {
+                <option [value]="u.fullName">{{ u.fullName }} ({{ u.roles.join(', ') }} · {{ u.assignedVessels.join(', ') }})</option>
+              }
               @for (ins of state.inspectors(); track ins.id) {
                 <option [value]="ins.name">{{ ins.name }} ({{ ins.role }} - {{ ins.organization }})</option>
               }
-            </datalist>
+              @for (crew of state.crewMembers(); track crew.id) {
+                <option [value]="crew.name">{{ crew.name }} ({{ crew.rank }} - {{ crew.vesselName }})</option>
+              }
+            </select>
             @if (fieldErrors()['inspectors']) {
               <div class="field-error-msg">
                 <mat-icon class="err-icon">error_outline</mat-icon>

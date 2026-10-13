@@ -104,10 +104,15 @@ import { HseqStateService } from '../../core/services/hseq-state.service';
               (ngModelChange)="clearError('cardType')"
               class="field-input"
               [class.input-error]="fieldErrors()['cardType']">
-              <option value="Unsafe Act">Unsafe Act</option>
-              <option value="Unsafe Condition">Unsafe Condition</option>
-              <option value="Safe Act">Safe Act</option>
-              <option value="Safe Condition">Safe Condition</option>
+              @for (t of state.getMasterList('Observation Types'); track t.id) {
+                <option [value]="t.name">{{ t.name }}</option>
+              }
+              @if (state.getMasterList('Observation Types').length === 0) {
+                <option value="Unsafe Act">Unsafe Act</option>
+                <option value="Unsafe Condition">Unsafe Condition</option>
+                <option value="Safe Act">Safe Act</option>
+                <option value="Safe Condition">Safe Condition</option>
+              }
             </select>
             @if (fieldErrors()['cardType']) {
               <div class="field-error-msg">
@@ -137,13 +142,33 @@ import { HseqStateService } from '../../core/services/hseq-state.service';
 
           <!-- Hazard Hunt Category -->
           <div class="form-field">
-            <label>Hazard Hunt Category</label>
-            <input type="text" list="categoryDatalist" [(ngModel)]="form.hazardHuntCategory" placeholder="e.g. Slip & Fall, Dropped Objects" class="field-input">
-            <datalist id="categoryDatalist">
+            <label>Hazard Category</label>
+            <select [(ngModel)]="form.hazardHuntCategory" class="field-input">
+              <option value="">-- Select Hazard Category --</option>
+              @for (cat of state.getMasterList('Observation Categories'); track cat.id) {
+                <option [value]="cat.name">{{ cat.name }} ({{ cat.code }})</option>
+              }
               @for (cat of state.categories(); track cat.id) {
                 <option [value]="cat.name">{{ cat.name }} ({{ cat.code }})</option>
               }
-            </datalist>
+            </select>
+          </div>
+
+          <!-- Observer / Reporter (Master Data Users & Crew) -->
+          <div class="form-field">
+            <label>Observer / Reporter</label>
+            <select 
+              [(ngModel)]="form.observerName" 
+              (ngModelChange)="onObserverSelect($event)"
+              class="field-input">
+              <option value="">-- Select Observer / Reporter --</option>
+              @for (u of state.users(); track u.id) {
+                <option [value]="u.fullName">{{ u.fullName }} - {{ u.roles.join(', ') }} ({{ u.assignedVessels.join(', ') }})</option>
+              }
+              @for (c of state.crewMembers(); track c.id) {
+                <option [value]="c.name">{{ c.name }} - {{ c.rank }} ({{ c.vesselName || 'Fleet' }})</option>
+              }
+            </select>
           </div>
 
           <!-- Detailed Description -->
@@ -418,8 +443,18 @@ export class SafeObservationFormComponent implements OnInit {
     ppeNotUsed: '',
     toolsAndEquipment: '',
     correctiveActionTaken: 'Yes',
-    actionsTaken: ''
+    actionsTaken: '',
+    observerName: ''
   };
+
+  onObserverSelect(name: string): void {
+    const term = (name || '').trim().toLowerCase();
+    const match = this.state.crewMembers().find(c => c.name.toLowerCase() === term);
+    if (match) {
+      if (match.vesselName) this.form.vesselName = match.vesselName;
+      if (match.department) this.form.department = match.department;
+    }
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

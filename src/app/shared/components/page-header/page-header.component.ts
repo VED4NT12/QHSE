@@ -22,7 +22,10 @@ import { MatIconModule } from '@angular/material/icon';
             <mat-icon>{{ icon }}</mat-icon>
           </div>
           <div>
-            <h1 class="page-title">{{ title }}</h1>
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+              <h1 class="page-title">{{ title }}</h1>
+              <ng-content select="[badge]"></ng-content>
+            </div>
             <p class="page-subtitle" *ngIf="subtitle">{{ subtitle }}</p>
           </div>
         </div>

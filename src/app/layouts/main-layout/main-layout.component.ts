@@ -34,15 +34,22 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
       flex: 1;
       overflow: hidden;
       position: relative;
+      min-width: 0;
     }
     .hseq-main-viewport {
       flex: 1;
       overflow-y: auto;
+      overflow-x: hidden;
+      min-width: 0;
+      width: 100%;
       background-color: var(--background);
     }
     .viewport-inner {
       padding: 24px 28px;
       max-width: 1540px;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
       margin: 0 auto;
     }
     @media (max-width: 768px) {

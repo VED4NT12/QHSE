@@ -9,6 +9,8 @@ import { ObservationStore } from '../../core/stores/observation.store';
 import { OnHireStore } from '../../core/stores/on-hire.store';
 import { InspectionStore } from '../../core/stores/inspection.store';
 import { CertificateStore } from '../../core/stores/certificate.store';
+import { PermitStore } from '../../core/stores/permit.store';
+import { HoursOfRestStore } from '../../core/stores/hours-of-rest.store';
 
 interface NavItem {
   label: string;
@@ -176,6 +178,10 @@ interface NavSection {
       background: var(--muted);
       color: var(--muted-foreground);
     }
+    .badge-success {
+      background: #dcfce7;
+      color: #166534;
+    }
     .sidebar-footer {
       padding: 12px;
       background: var(--sidebar);
@@ -220,6 +226,8 @@ export class SidebarComponent {
   private onHireStore = inject(OnHireStore);
   private inspectionStore = inject(InspectionStore);
   private certificateStore = inject(CertificateStore);
+  private permitStore = inject(PermitStore);
+  private horStore = inject(HoursOfRestStore);
 
   // Dynamic Data-driven Navigation Sections & Badge Counts
   readonly navSections = computed<NavSection[]>(() => {
@@ -231,18 +239,31 @@ export class SidebarComponent {
     // 2. Safe Observations
     const obsTotal = this.observationStore.records().length;
 
-    // 3. On Hire Inspections
+    // 3. Risk Assessment (HIRA / JSA)
+    const raRecords = this.state.riskAssessments();
+    const raApproved = raRecords.filter(r => r.status === 'Approved').length;
+    const raTotal = raRecords.length;
+
+    // 4. Permit to Work (PTW)
+    const ptwActive = this.permitStore.activeCount();
+    const ptwTotal = this.permitStore.totalCount();
+
+    // 5. On Hire Inspections
     const onHireTotal = this.onHireStore.records().length;
 
-    // 4. Fleet Inspection Tracker
+    // 6. Fleet Inspection Tracker
     const inspTotal = this.inspectionStore.records().length;
 
-    // 5. Certificate Tracker
+    // 7. Certificate Tracker
     const certRecords = this.certificateStore.records();
     const certDue = certRecords.filter(c => (c.status as string) === 'In Window' || c.status === 'Expiring Soon' || c.status === 'Expired' || (c.remainingDays !== undefined && c.remainingDays <= 60)).length;
     const certTotal = certRecords.length;
 
-    // 6. Master Data Vessels
+    // 8. Hours of Rest (HoR) Violations & Monitored Crew
+    const horViolations = this.horStore.fleetViolationCount();
+    const horCrewTotal = this.state.crewMembers().length;
+
+    // 9. Master Data Vessels
     const vesselCount = this.state.vessels().length;
 
     return [
@@ -253,7 +274,7 @@ export class SidebarComponent {
         ]
       },
       {
-        title: 'Safety & Observations',
+        title: 'Safety & Operations',
         items: [
           { 
             label: 'Near Miss Tracker', 
@@ -268,6 +289,20 @@ export class SidebarComponent {
             route: '/safe-observations',
             badge: `${obsTotal}`,
             badgeClass: 'badge-muted'
+          },
+          {
+            label: 'Risk Assessment (HIRA/JSA)',
+            icon: 'rule',
+            route: '/risk-assessment',
+            badge: raApproved > 0 ? `${raApproved} Approved` : `${raTotal}`,
+            badgeClass: raApproved > 0 ? 'badge-success' : 'badge-muted'
+          },
+          {
+            label: 'Permit to Work (PTW)',
+            icon: 'vpn_key',
+            route: '/permits',
+            badge: ptwActive > 0 ? `${ptwActive} Active` : `${ptwTotal}`,
+            badgeClass: ptwActive > 0 ? 'badge-alert' : 'badge-muted'
           }
         ]
       },
@@ -293,6 +328,13 @@ export class SidebarComponent {
       {
         title: 'Compliance & Verification',
         items: [
+          {
+            label: 'Hours of Rest (HoR)',
+            icon: 'schedule',
+            route: '/hours-of-rest',
+            badge: horViolations > 0 ? `${horViolations} Alerts` : `${horCrewTotal} Crew`,
+            badgeClass: horViolations > 0 ? 'badge-alert' : 'badge-success'
+          },
           {
             label: 'Certificate Tracker',
             icon: 'verified',

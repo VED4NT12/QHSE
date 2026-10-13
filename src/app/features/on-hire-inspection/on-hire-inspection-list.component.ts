@@ -160,7 +160,6 @@ export interface OnHireFinding {
           <div class="header-info">
             <div class="d-flex align-items-center gap-2">
               <h2 class="table-card-title">On-Hire Inspections (Master Grid)</h2>
-              <span class="grid-badge">Grid inside Grid</span>
             </div>
             <span class="table-card-count">
               Showing {{ paginatedRunning().length }} of {{ filteredRunning().length }} inspections
@@ -521,8 +520,11 @@ export interface OnHireFinding {
             <div class="fmodal-grid-2">
               <div class="fmodal-field-group">
                 <label class="fmodal-label">Dept / By Who</label>
-                <input type="text" class="fmodal-input" [(ngModel)]="findingForm.dept" placeholder="e.g. deck, eng, deck/eng, CE, PE, Master" list="onHireDepts">
-                <datalist id="onHireDepts">
+                <select class="fmodal-input" [(ngModel)]="findingForm.dept">
+                  <option value="">-- Select Dept / By Who --</option>
+                  @for (d of state.departments(); track d.id) {
+                    <option [value]="d.name">{{ d.name }} ({{ d.code }})</option>
+                  }
                   <option value="deck">Deck Department</option>
                   <option value="eng">Engine Department</option>
                   <option value="deck/eng">Deck & Engine Joint</option>
@@ -530,7 +532,7 @@ export interface OnHireFinding {
                   <option value="PE">Port Engineer</option>
                   <option value="Master">Master</option>
                   <option value="Safety">Safety Officer</option>
-                </datalist>
+                </select>
               </div>
 
               <div class="fmodal-field-group">
@@ -1152,6 +1154,7 @@ export interface OnHireFinding {
 export class OnHireInspectionListComponent {
   private store = inject(OnHireStore);
   private notify = inject(NotificationService);
+  readonly state = inject(HseqStateService);
 
   readonly searchQuery = signal('');
   readonly vesselFilter = signal('ALL');

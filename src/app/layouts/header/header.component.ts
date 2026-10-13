@@ -13,6 +13,7 @@ import { HseqStateService } from '../../core/services/hseq-state.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { UserRole } from '../../core/models/hseq.models';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { PermitStore } from '../../core/stores/permit.store';
 
 @Component({
   selector: 'app-header',
@@ -47,19 +48,39 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
           </div>
         </div>
 
-        <!-- Vessel Filter Selector -->
-        <div class="vessel-selector-wrap">
+        <!-- Vessel Filter Selector with MatMenu -->
+        <div
+          class="vessel-selector-wrap"
+          [matMenuTriggerFor]="vesselMenu"
+          #vesselTrigger="matMenuTrigger"
+          [class.menu-open]="vesselTrigger.menuOpen"
+          matTooltip="Filter fleet safety records by vessel asset">
           <mat-icon class="vessel-icon">directions_boat</mat-icon>
-          <select 
-            class="header-native-select"
-            [ngModel]="state.selectedVesselFilter()"
-            (ngModelChange)="onVesselChange($event)">
-            <option value="ALL">All Vessels (Full Fleet)</option>
-            <option *ngFor="let v of state.vessels()" [value]="v.id">
-              {{ v.name }} ({{ v.vesselType }})
-            </option>
-          </select>
+          <span class="vessel-label-text">{{ selectedVesselLabel() }}</span>
+          <mat-icon class="vessel-arrow">expand_more</mat-icon>
         </div>
+
+        <mat-menu #vesselMenu="matMenu" class="vessel-menu-panel">
+          <div class="menu-header-label">Fleet Asset Filter</div>
+          
+          <button mat-menu-item (click)="onVesselChange('ALL')" [class.active-vessel-item]="state.selectedVesselFilter() === 'ALL'">
+            <mat-icon [color]="state.selectedVesselFilter() === 'ALL' ? 'primary' : ''">
+              {{ state.selectedVesselFilter() === 'ALL' ? 'check_circle' : 'apps' }}
+            </mat-icon>
+            <span [class.font-bold]="state.selectedVesselFilter() === 'ALL'">All Vessels (Full Fleet)</span>
+          </button>
+
+          <div class="menu-divider"></div>
+
+          <div class="vessel-menu-scroll">
+            <button *ngFor="let v of state.vessels()" mat-menu-item (click)="onVesselChange(v.id)" [class.active-vessel-item]="state.selectedVesselFilter() === v.id">
+              <mat-icon [color]="state.selectedVesselFilter() === v.id ? 'primary' : ''">
+                {{ state.selectedVesselFilter() === v.id ? 'check_circle' : 'directions_boat' }}
+              </mat-icon>
+              <span>{{ v.name }} <span class="vessel-type-hint">({{ v.vesselType }})</span></span>
+            </button>
+          </div>
+        </mat-menu>
       </div>
 
       <div class="header-right">
@@ -81,6 +102,10 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
           <button mat-menu-item (click)="showQuickIncidentModal = true">
             <mat-icon color="warn">report_problem</mat-icon>
             <span>Log Incident Report</span>
+          </button>
+          <button mat-menu-item routerLink="/risk-assessment/create">
+            <mat-icon color="primary">rule</mat-icon>
+            <span>Create Risk Assessment (JSA)</span>
           </button>
           <button mat-menu-item (click)="showQuickPermitModal = true">
             <mat-icon>vpn_key</mat-icon>
@@ -402,28 +427,76 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
     .vessel-selector-wrap {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       background: var(--muted);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 5px 12px;
+      padding: 6px 12px;
       margin-left: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      height: 38px;
+      box-sizing: border-box;
+    }
+    .vessel-selector-wrap:hover,
+    .vessel-selector-wrap.menu-open {
+      background: var(--accent);
+      border-color: var(--primary);
     }
     .vessel-icon {
       font-size: 18px;
       width: 18px;
       height: 18px;
       color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
-    .header-native-select {
-      background: transparent;
-      border: none;
-      outline: none;
+    .vessel-label-text {
       font-size: 13px;
       font-weight: 600;
       color: var(--foreground);
       font-family: var(--font-sans);
-      cursor: pointer;
+      max-width: 250px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .vessel-arrow {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      color: var(--muted-foreground);
+      transition: transform 0.2s ease, color 0.15s ease;
+      margin-left: 2px;
+      flex-shrink: 0;
+    }
+    .vessel-selector-wrap:hover .vessel-arrow,
+    .vessel-selector-wrap.menu-open .vessel-arrow {
+      color: var(--primary);
+    }
+    .vessel-selector-wrap.menu-open .vessel-arrow {
+      transform: rotate(180deg);
+    }
+    .menu-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 4px 0;
+    }
+    .vessel-type-hint {
+      font-size: 11px;
+      color: var(--muted-foreground);
+      margin-left: 4px;
+    }
+    .vessel-menu-scroll {
+      max-height: 360px;
+      overflow-y: auto;
+    }
+    .active-vessel-item {
+      background-color: var(--accent) !important;
+      color: var(--primary) !important;
     }
     .header-right {
       display: flex;
@@ -913,6 +986,7 @@ export class HeaderComponent {
 
   private router = inject(Router);
   public state = inject(HseqStateService);
+  private permitStore = inject(PermitStore);
   private notify = inject(NotificationService);
   private elRef = inject(ElementRef);
 
@@ -972,6 +1046,15 @@ export class HeaderComponent {
   quickNearMissVesselId: string = 'VES-01';
   quickNearMissCategory: any = 'Dropped Object';
   quickNearMissDesc: string = '';
+
+  selectedVesselLabel(): string {
+    const filter = this.state.selectedVesselFilter();
+    if (filter === 'ALL') {
+      return 'All Vessels (Full Fleet)';
+    }
+    const vessel = this.state.vessels().find(v => v.id === filter);
+    return vessel ? `${vessel.name} (${vessel.vesselType})` : 'All Vessels (Full Fleet)';
+  }
 
   onVesselChange(vesselId: string) {
     this.state.setVesselFilter(vesselId);
@@ -1034,12 +1117,13 @@ export class HeaderComponent {
     }
 
     const vessel = this.state.vessels().find(v => v.id === this.quickPermitVesselId);
-    const newRecord = this.state.addPermit({
+    const newRecord = this.permitStore.addPermit({
       vesselId: this.quickPermitVesselId,
       vesselName: vessel?.name || 'MV Pacific Voyager',
       permitType: this.quickPermitType,
       worksiteLocation: this.quickPermitLocation,
-      workDescription: this.quickPermitDesc
+      workDescription: this.quickPermitDesc,
+      status: 'Active'
     });
 
     this.showQuickPermitModal = false;

@@ -148,7 +148,6 @@ export type InspectionRecord = InspectionTrackerRecord;
             <div class="header-info">
               <div class="d-flex align-items-center gap-2">
                 <h2 class="table-card-title">Inspection Running Sheet (Master Grid)</h2>
-                <span class="grid-badge">Grid inside Grid</span>
               </div>
               <span class="table-card-count">
                 Showing {{ paginatedRecords().length }} of {{ filteredRecords().length }} inspections
@@ -752,8 +751,11 @@ export type InspectionRecord = InspectionTrackerRecord;
 
               <div class="fmodal-field-group">
                 <label class="fmodal-label">Sub AOC</label>
-                <input type="text" class="fmodal-input" [(ngModel)]="findingForm.subAoc" placeholder="e.g. Machinery Maintenance, Record Keeping" list="insSubAocList">
-                <datalist id="insSubAocList">
+                <select class="fmodal-select" [(ngModel)]="findingForm.subAoc">
+                  <option value="">-- Select Sub AOC / Category --</option>
+                  @for (cat of state.getMasterList('Finding Categories'); track cat.id) {
+                    <option [value]="cat.name">{{ cat.name }} ({{ cat.code }})</option>
+                  }
                   <option value="Machinery Maintenance">Machinery Maintenance</option>
                   <option value="Record Keeping">Record Keeping</option>
                   <option value="Safety Drills">Safety Drills</option>
@@ -761,7 +763,7 @@ export type InspectionRecord = InspectionTrackerRecord;
                   <option value="Life Saving Appliances">Life Saving Appliances (LSA)</option>
                   <option value="Fire Fighting Equipment">Fire Fighting Equipment (FFA)</option>
                   <option value="PMS Overdue">PMS Overdue</option>
-                </datalist>
+                </select>
               </div>
             </div>
 
@@ -1686,6 +1688,7 @@ export type InspectionRecord = InspectionTrackerRecord;
 export class InspectionTrackerListComponent {
   private store = inject(InspectionStore);
   private notify = inject(NotificationService);
+  readonly state = inject(HseqStateService);
 
   readonly activeTab = signal<'grid' | 'vessel-matrix'>('grid');
   readonly selectedMatrixVessel = signal<string>('MV Pacific Voyager');

@@ -98,8 +98,20 @@ import { RiskLevel } from '../../core/models/hseq.models';
 
             <div class="form-grid-2 mt-3" *ngIf="!isAnonymous">
               <div class="form-field-group">
-                <label class="field-label">Reporter Name</label>
-                <input type="text" [(ngModel)]="reporterName" name="repName" class="form-native-input" />
+                <label class="field-label">Reporter Name (Master Crew)</label>
+                <select 
+                  [(ngModel)]="reporterName" 
+                  name="repName" 
+                  (ngModelChange)="onReporterSelect($event)"
+                  class="form-native-input">
+                  <option value="">-- Select Crew Member / User --</option>
+                  @for (u of state.users(); track u.id) {
+                    <option [value]="u.fullName">{{ u.fullName }} - {{ u.roles.join(', ') }} ({{ u.assignedVessels.join(', ') }})</option>
+                  }
+                  <option *ngFor="let c of state.crewMembers()" [value]="c.name">
+                    {{ c.name }} - {{ c.rank }} ({{ c.vesselName || 'Fleet' }})
+                  </option>
+                </select>
               </div>
               <div class="form-field-group">
                 <label class="field-label">Rank / Designation</label>
@@ -272,6 +284,19 @@ export class SafeCardCreateComponent {
     private dialog: MatDialog,
     private notify: NotificationService
   ) {}
+
+  onReporterSelect(name: string): void {
+    const term = (name || '').trim().toLowerCase();
+    const match = this.state.crewMembers().find(c => c.name.toLowerCase() === term);
+    if (match) {
+      if (match.rank) this.reporterRank = match.rank;
+      if (match.department) this.department = match.department;
+      if (match.vesselId) {
+        const vMatch = this.state.vessels().find(v => v.id === match.vesselId || v.name === match.vesselName);
+        if (vMatch) this.vesselId = vMatch.id;
+      }
+    }
+  }
 
   getTypeIcon(t: string): string {
     if (t.includes('Safe') || t.includes('Positive')) return 'thumb_up';

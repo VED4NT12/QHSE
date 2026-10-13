@@ -48,6 +48,9 @@ import { ObservationStore, SafeObservationCard } from '../../core/stores/observa
               </div>
               <div class="info-item"><span class="lbl">What Was Observed</span><span class="val fw">{{ card()!.whatWasObserved || '—' }}</span></div>
               <div class="info-item"><span class="lbl">Hazard Hunt Category</span><span class="val">{{ card()!.hazardHuntCategory || '—' }}</span></div>
+              @if (card()!.observerName) {
+                <div class="info-item"><span class="lbl">Observer / Reporter</span><span class="val fw">{{ card()!.observerName }}</span></div>
+              }
             </div>
           </div>
 

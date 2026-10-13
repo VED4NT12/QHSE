@@ -31,15 +31,15 @@ import { MatButtonModule } from '@angular/material/button';
       justify-content: center;
       padding: 48px 20px;
       text-align: center;
-      background: #ffffff;
-      border-radius: 8px;
+      background: var(--card);
+      border-radius: var(--radius-md);
     }
     .empty-icon-circle {
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      background: #f1f5f9;
-      color: #64748b;
+      background: var(--muted);
+      color: var(--muted-foreground);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -53,12 +53,12 @@ import { MatButtonModule } from '@angular/material/button';
     .empty-title {
       font-size: 15px;
       font-weight: 700;
-      color: #0f172a;
+      color: var(--foreground);
       margin: 0 0 6px 0;
     }
     .empty-desc {
       font-size: 13px;
-      color: #64748b;
+      color: var(--muted-foreground);
       max-width: 440px;
       margin: 0 0 16px 0;
       line-height: 1.4;

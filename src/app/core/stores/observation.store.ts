@@ -6,6 +6,7 @@ export interface SafeObservationCard {
   date: string;
   time: string;
   cardType: string;
+  observerName?: string;
   department?: string;
   hazardHuntCategory?: string;
   whatWasObserved: string;
